@@ -19,7 +19,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ── Configuración ───────────────────────────────────────────
 const CONFIG = {
-  TIMEZONE:        "Europe/Madrid",   // ← Cambia a tu zona horaria
+  TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
   HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
   CENTER_NAME:     "Centro Médico Vida Sana",
