@@ -20,7 +20,7 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 // ── Configuración ───────────────────────────────────────────
 const CONFIG = {
   TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
-  HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
+  HUMAN_PHONE:     "whatsapp:+34687533570", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
   CENTER_NAME:     "Minilla Centro Médico",
   BOT_NAME:        "Tu Asistente",
