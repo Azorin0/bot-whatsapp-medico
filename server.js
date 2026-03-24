@@ -1,7 +1,7 @@
 /**
  * ============================================================
  *  Centro Médico – WhatsApp Bot con Twilio + Claude AI
- *  Activo: Sábados 14:00 – Domingos 23:59 (hora local)
+ *  Activo: Lunes a Domingo 7:00 – 23:00 (hora local)
  *  Fuera de horario: transfiere al personal humano
  * ============================================================
  */
@@ -20,10 +20,10 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 // ── Configuración ───────────────────────────────────────────
 const CONFIG = {
   TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
-  HUMAN_PHONE:     "whatsapp:+34687533570", // ← Número del personal humano
+  HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
-  CENTER_NAME:     "Minilla Centro Médico",
-  BOT_NAME:        "Tu Asistente",
+  CENTER_NAME:     "Centro Médico Vida Sana",
+  BOT_NAME:        "MediBot",
 };
 
 // ── Memoria de conversaciones (en RAM) ─────────────────────
@@ -37,22 +37,30 @@ function getSession(phone) {
 
 // ── Lógica de horario ───────────────────────────────────────
 function isBotActive() {
-  return true; // ✅ Bot activo 24/7
+  const now  = new Date(new Date().toLocaleString("en-US", { timeZone: CONFIG.TIMEZONE }));
+  const hour = now.getHours();
+  const min  = now.getMinutes();
+  const time = hour * 60 + min; // minutos desde medianoche
+
+  const BOT_START = 7 * 60;       // 07:00
+  const BOT_END   = 23 * 60;      // 23:00
+
+  return time >= BOT_START && time < BOT_END; // Todos los días 7:00 – 23:00
 }
 
 function nextActiveTime() {
-  return "ahora mismo";
+  return "mañana a las 7:00";
 }
 
 // ── System prompt para Claude ───────────────────────────────
-const SYSTEM_PROMPT = `Eres Tu ayudante, asistente virtual de ${CONFIG.CENTER_NAME}.
+const SYSTEM_PROMPT = `Eres MediBot, asistente virtual de ${CONFIG.CENTER_NAME}.
 Respondes SOLO en español, de forma amigable, cálida y profesional.
 Eres breve (máximo 3 párrafos por respuesta). No uses markdown ni asteriscos.
 
 INFORMACIÓN DEL CENTRO:
-- Dirección: Av. Federico García Lorca 19
-- Teléfono: +34 687 53 36 70
-- Horario de atención presencial: Lun–Vie 9:00–20:00
+- Dirección: Av. Salud 123, Col. Centro
+- Teléfono: +52 (55) 0000-0000
+- Horario de atención presencial: Lun–Vie 8:00–20:00 | Sáb 8:00–14:00
 
 DOCTORES Y ESPECIALIDADES:
 - Dra. Mariana López | Medicina General | Lun–Vie 8:00–14:00
@@ -111,7 +119,7 @@ app.post("/webhook", async (req, res) => {
         `Hola 👋 Soy MediBot de ${CONFIG.CENTER_NAME}.\n\n` +
         `En este momento nuestro equipo humano está disponible para atenderte. ` +
         `Te estoy transfiriendo con ${CONFIG.HUMAN_NAME}.\n\n` +
-        `📞 También puedes llamarnos al +34 687 53 36 70.\n\n` +
+        `📞 También puedes llamarnos al +52 (55) 0000-0000.\n\n` +
         `Nuestro bot estará disponible automáticamente ${nextActiveTime()}. ¡Hasta pronto! 🏥`
       );
 
