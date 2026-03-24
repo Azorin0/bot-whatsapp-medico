@@ -60,7 +60,7 @@ DOCTORES Y ESPECIALIDADES:
 - Dra. Sofía Mendoza | Pediatría | Lun–Sáb 7:00–12:00
 - Dr. Carlos Herrera | Traumatología | Mié–Vie 10:00–16:00 (sin cupos esta semana)
 - Dra. Valentina Cruz | Ginecología | Lun–Vie 14:00–19:00
-- Dr. Fernando Salinas | Neurología | Mar–Jue 8:00–14:00
+- Dr. Victoria Mota y Antonio | Neurología | Mar–Jue 8:00–14:00
 - Dra. Isabel Ramírez | Dermatología | Lun–Mié 15:00–19:00
 - Dr. Miguel Torres | Oftalmología | Jue–Sáb 9:00–13:00
 
