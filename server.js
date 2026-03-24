@@ -43,7 +43,7 @@ function isBotActive() {
   const min  = now.getMinutes();
   const time = hour * 60 + min; // minutos desde medianoche
 
-  const SAT_START = 14 * 60; // 14:00
+  const SAT_START = 07 * 60; // 07:00
   const END_TIME  = 23 * 60 + 59; // 23:59
 
   if (day === 0) return true;                          // Domingo completo
@@ -66,9 +66,9 @@ Respondes SOLO en español, de forma amigable, cálida y profesional.
 Eres breve (máximo 3 párrafos por respuesta). No uses markdown ni asteriscos.
 
 INFORMACIÓN DEL CENTRO:
-- Dirección: Av. Salud 123, Col. Centro
-- Teléfono: +52 (55) 0000-0000
-- Horario de atención presencial: Lun–Vie 8:00–20:00 | Sáb 8:00–14:00
+- Dirección: Av. Federico García Lorca 19
+- Teléfono: +34 687 53 36 70
+- Horario de atención presencial: Lun–Vie 9:00–20:00
 
 DOCTORES Y ESPECIALIDADES:
 - Dra. Mariana López | Medicina General | Lun–Vie 8:00–14:00
