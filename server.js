@@ -19,11 +19,11 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 // ── Configuración ───────────────────────────────────────────
 const CONFIG = {
-  TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
+  TIMEZONE:        "Europe/Madrid",   // ← Cambia a tu zona horaria
   HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
   CENTER_NAME:     "Centro Médico Vida Sana",
-  BOT_NAME:        "MediBot",
+  BOT_NAME:        "Tu Ayudante",
 };
 
 // ── Memoria de conversaciones (en RAM) ─────────────────────
@@ -37,15 +37,7 @@ function getSession(phone) {
 
 // ── Lógica de horario ───────────────────────────────────────
 function isBotActive() {
-  const now  = new Date(new Date().toLocaleString("en-US", { timeZone: CONFIG.TIMEZONE }));
-  const hour = now.getHours();
-  const min  = now.getMinutes();
-  const time = hour * 60 + min; // minutos desde medianoche
-
-  const BOT_START = 7 * 60;       // 07:00
-  const BOT_END   = 23 * 60;      // 23:00
-
-  return time >= BOT_START && time < BOT_END; // Todos los días 7:00 – 23:00
+  return true;
 }
 
 function nextActiveTime() {
