@@ -37,15 +37,7 @@ function getSession(phone) {
 
 // ── Lógica de horario ───────────────────────────────────────
 function isBotActive() {
-  const now  = new Date(new Date().toLocaleString("en-US", { timeZone: CONFIG.TIMEZONE }));
-  const hour = now.getHours();
-  const min  = now.getMinutes();
-  const time = hour * 60 + min; // minutos desde medianoche
-
-  const BOT_START = 7 * 60;       // 07:00
-  const BOT_END   = 23 * 60;      // 23:00
-
-  return time >= BOT_START && time < BOT_END; // Todos los días 7:00 – 23:00
+  return true; // Bot activo las 24 horas, todos los días
 }
 
 function nextActiveTime() {
