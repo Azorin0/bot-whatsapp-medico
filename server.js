@@ -22,8 +22,8 @@ const CONFIG = {
   TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
   HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
-  CENTER_NAME:     "Centro MkkkkkkVida Sana",
-  BOT_NAME:        "MediBot",
+  CENTER_NAME:     "Minilla Centro Médico",
+  BOT_NAME:        "Tu Asistente",
 };
 
 // ── Memoria de conversaciones (en RAM) ─────────────────────
