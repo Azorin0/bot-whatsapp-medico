@@ -46,7 +46,7 @@ function nextActiveTime() {
 
 // ── System prompt para Claude ───────────────────────────────
 const SYSTEM_PROMPT = `Eres Tu Ayudante Virtual, asistente virtual de ${CONFIG.CENTER_NAME}.
-Respondes SOLO en español o en el idioma en que te escriban, de forma amigable, cálida y profesional.
+Respondes de usted, SOLO en español o en el idioma en que te escriban, de forma amigable, cálida y profesional.
 Eres breve (máximo 2 párrafos por respuesta). No uses markdown ni asteriscos.
 
 INFORMACIÓN DEL CENTRO:
