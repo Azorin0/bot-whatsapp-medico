@@ -45,7 +45,7 @@ function nextActiveTime() {
 }
 
 // ── System prompt para Claude ───────────────────────────────
-const SYSTEM_PROMPT = `Eres MediBot, asistente virtual de ${CONFIG.CENTER_NAME}.
+const SYSTEM_PROMPT = `Eres Tu ayudante, asistente virtual de ${CONFIG.CENTER_NAME}.
 Respondes SOLO en español, de forma amigable, cálida y profesional.
 Eres breve (máximo 3 párrafos por respuesta). No uses markdown ni asteriscos.
 
