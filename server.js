@@ -37,27 +37,11 @@ function getSession(phone) {
 
 // ── Lógica de horario ───────────────────────────────────────
 function isBotActive() {
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: CONFIG.TIMEZONE }));
-  const day  = now.getDay();   // 0=Dom, 6=Sáb
-  const hour = now.getHours();
-  const min  = now.getMinutes();
-  const time = hour * 60 + min; // minutos desde medianoche
-
-  const SAT_START = 07 * 60; // 07:00
-  const END_TIME  = 23 * 60 + 59; // 23:59
-
-  if (day === 0) return true;                          // Domingo completo
-  if (day === 6 && time >= SAT_START) return true;     // Sábado desde las 14:00
-  return false;
+  return true; // ✅ Bot activo 24/7
 }
 
 function nextActiveTime() {
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: CONFIG.TIMEZONE }));
-  const day = now.getDay();
-  if (day === 6) return "hoy a las 14:00";
-  if (day === 0) return "hoy mismo (domingo activo)";
-  const daysUntilSat = (6 - day + 7) % 7 || 7;
-  return `el próximo sábado a las 14:00`;
+  return "ahora mismo";
 }
 
 // ── System prompt para Claude ───────────────────────────────
