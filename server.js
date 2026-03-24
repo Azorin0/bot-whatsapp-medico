@@ -127,7 +127,7 @@ app.post("/webhook", async (req, res) => {
         `Hola 👋 Soy MediBot de ${CONFIG.CENTER_NAME}.\n\n` +
         `En este momento nuestro equipo humano está disponible para atenderte. ` +
         `Te estoy transfiriendo con ${CONFIG.HUMAN_NAME}.\n\n` +
-        `📞 También puedes llamarnos al +52 (55) 0000-0000.\n\n` +
+        `📞 También puedes llamarnos al +34 687 53 36 70.\n\n` +
         `Nuestro bot estará disponible automáticamente ${nextActiveTime()}. ¡Hasta pronto! 🏥`
       );
 
