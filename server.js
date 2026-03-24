@@ -20,10 +20,10 @@ const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 // ── Configuración ───────────────────────────────────────────
 const CONFIG = {
   TIMEZONE:        "America/Mexico_City",   // ← Cambia a tu zona horaria
-  HUMAN_PHONE:     "whatsapp:+521XXXXXXXXXX", // ← Número del personal humano
+  HUMAN_PHONE:     "whatsapp:++34 687533670", // ← Número del personal humano
   HUMAN_NAME:      "Recepción",
-  CENTER_NAME:     "Centro Médico Vida Sana",
-  BOT_NAME:        "MediBot",
+  CENTER_NAME:     "Minilla Centro Médico",
+  BOT_NAME:        "Tu Ayudante Virtual",
 };
 
 // ── Memoria de conversaciones (en RAM) ─────────────────────
@@ -45,17 +45,17 @@ function nextActiveTime() {
 }
 
 // ── System prompt para Claude ───────────────────────────────
-const SYSTEM_PROMPT = `Eres MediBot, asistente virtual de ${CONFIG.CENTER_NAME}.
+const SYSTEM_PROMPT = `Eres Tu Ayudante Virtual, asistente virtual de ${CONFIG.CENTER_NAME}.
 Respondes SOLO en español, de forma amigable, cálida y profesional.
 Eres breve (máximo 3 párrafos por respuesta). No uses markdown ni asteriscos.
 
 INFORMACIÓN DEL CENTRO:
-- Dirección: Av. Salud 123, Col. Centro
-- Teléfono: +52 (55) 0000-0000
-- Horario de atención presencial: Lun–Vie 8:00–20:00 | Sáb 8:00–14:00
+- Dirección: Av. Federico García Lorca 19, local 4 en la Minilla.
+- Teléfono: +34 687533670
+- Horario de atención presencial: Lun–Vie 9:00–20:00
 
 DOCTORES Y ESPECIALIDADES:
-- Dra. Mariana López | Medicina General | Lun–Vie 8:00–14:00
+- Dra. Janok Paniagua de Diego | Medicina del Sueño y ElectroMiografía | Mié 10:00–16:00
 - Dr. Alejandro Ríos | Cardiología | Mar–Jue 9:00–13:00
 - Dra. Sofía Mendoza | Pediatría | Lun–Sáb 7:00–12:00
 - Dr. Carlos Herrera | Traumatología | Mié–Vie 10:00–16:00 (sin cupos esta semana)
