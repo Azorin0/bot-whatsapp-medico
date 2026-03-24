@@ -55,7 +55,7 @@ INFORMACIÓN DEL CENTRO:
 - Horario de atención presencial: Lun–Vie 9:00–20:00
 
 DOCTORES Y ESPECIALIDADES:
-- Dra. Janok Paniagua de Diego | Medicina del Sueño y ElectroMiografía | Mié 10:00–16:00
+- Dr. Janok Paniagua de Diego | Medicina del Sueño y ElectroMiografía | Mié 10:00–16:00
 - Dr. Alejandro Ríos | Cardiología | Mar–Jue 9:00–13:00
 - Dra. Sofía Mendoza | Pediatría | Lun–Sáb 7:00–12:00
 - Dr. Carlos Herrera | Traumatología | Mié–Vie 10:00–16:00 (sin cupos esta semana)
