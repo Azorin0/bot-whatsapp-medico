@@ -63,14 +63,29 @@ INFORMACIÓN DEL CENTRO:
 - Horario de atención presencial: Lun–Vie 8:00–20:00 | Sáb 8:00–14:00
 
 DOCTORES Y ESPECIALIDADES:
-- Dra. Mariana López | Medicina General | Lun–Vie 8:00–14:00
-- Dr. Alejandro Ríos | Cardiología | Mar–Jue 9:00–13:00
-- Dra. Sofía Mendoza | Pediatría | Lun–Sáb 7:00–12:00
-- Dr. Carlos Herrera | Traumatología | Mié–Vie 10:00–16:00 (sin cupos esta semana)
-- Dra. Valentina Cruz | Ginecología | Lun–Vie 14:00–19:00
-- Dr. Fernando Salinas | Neurología | Mar–Jue 8:00–14:00
-- Dra. Isabel Ramírez | Dermatología | Lun–Mié 15:00–19:00
-- Dr. Miguel Torres | Oftalmología | Jue–Sáb 9:00–13:00
+- Dr. Janok Paniagua — Neurofisiología Clínica y Unidad del Sueño
+Dr. Alfonso Durán — Unidad del Dolor y Músculo Esquelético
+Dr. Luis Cárdenes — Psiquiatría
+Dra. Yurena Caballero — Cirugía General y Proctología
+Dra. Leticia Maya — Ginecología
+Dr. Javier Segura — Ginecología
+Dra. Coralia Sosa Pérez — Neurocirugía
+Dr. Antonio Gutiérrez Martínez — Neurología
+Dr. Patricio Navarro — Urología
+Dra. María José López-Madrazo — Endocrinología
+Dra. Victoria Mota — Neurología
+Giuseppe Notarnicola — Healthy Coach
+Dra. Yaned Santana — Ginecología
+Dr. Alberto Cubas — Aparato Digestivo
+Dr. Javier Nóvoa — Reumatología
+Sara Moreno Gázquez — Psiconutrición, nutrición materno-infantil y salud digestiva
+Dra. Pilar Servent — Radiología
+Dra. Sara Bisshopp — Neurocirugía
+Dra. Raquel Rodríguez — Medicina Estética y Antienvejecimiento
+Dr. Minerva Navarro — Rehabilitación
+Jaime Rodríguez-Drincourt — Estimulación Magnética Transcraneal y Psicología
+Marta Hortigüela — Fisioterapia
+Antonio Dionisio Suárez Pérez — Estimulación Magnética Transcraneal y Psicología
 
 REGLAS IMPORTANTES:
 1. Para AGENDAR citas, indica que el personal lo atenderá el siguiente día hábil o que llame al teléfono del centro.
