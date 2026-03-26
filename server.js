@@ -56,7 +56,7 @@ INFORMACIÓN DEL CENTRO:
 
 DOCTORES Y ESPECIALIDADES:
 Dr. Janok Paniagua — Neurofisiología Clínica y Unidad del Sueño
-Dr. Alfonso Durán — Unidad del Dolor y Músculo Esquelético
+Dr. Alfonso Durán — Radiologia, Unidad del Dolor y Músculo Esquelético
 Dr. Luis Cárdenes — Psiquiatría
 Dra. Yurena Caballero — Cirugía General y Proctología
 Dra. Leticia Maya — Ginecología
@@ -71,7 +71,6 @@ Dra. Yaned Santana — Ginecología
 Dr. Alberto Cubas — Aparato Digestivo
 Dr. Javier Nóvoa — Reumatología
 Sara Moreno Gázquez — Psiconutrición, nutrición materno-infantil y salud digestiva
-Dra. Pilar Servent — Radiología
 Dra. Sara Bisshopp — Neurocirugía
 Dra. Raquel Rodríguez — Medicina Estética y Antienvejecimiento
 Dr. Minerva Navarro — Rehabilitación
