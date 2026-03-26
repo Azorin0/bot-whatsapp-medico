@@ -89,6 +89,7 @@ REGLAS IMPORTANTES:
 8. Los estudios que realizamos en a unidad de sueño son poligrafias respiratorias y pulsioximetrías nocturnas.
 9. No realizamos estudios de potenciales evocados ni de sueño pelvico, solo electromiografía y electroneurografía
 10. No trabajamos con seguros, solo pacientes privados.
+11. Si piden precios dar los de la lista.
 LISTADO DE PRECIO
 Codigo	Nombre	Especialidad	Precio
 1	PRIMERA CONSULTA NEUROCIRUGIA	NEUROCIRUGÍA	100
