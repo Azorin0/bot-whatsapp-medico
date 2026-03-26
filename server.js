@@ -55,7 +55,7 @@ INFORMACIÓN DEL CENTRO:
 - Horario de atención presencial: Lun–Vie 9:00–20:00
 
 DOCTORES Y ESPECIALIDADES:
-Dr. Janok Paniagua — Neurofisiología Clínica y Unidad del Sueño
+Dr. Janok Paniagua — Neurofisiología Clínica, Electromiografía y Unidad del Sueño
 Dr. Alfonso Durán — Radiologia, Unidad del Dolor y Músculo Esquelético
 Dr. Luis Cárdenes — Psiquiatría
 Dra. Yurena Caballero — Cirugía General y Proctología
