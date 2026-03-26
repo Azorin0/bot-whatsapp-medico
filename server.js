@@ -85,7 +85,9 @@ REGLAS IMPORTANTES:
 4. No inventes información médica ni hagas diagnósticos.
 5. Para información radiológica usar fuentes científicas.
 6. Si preguntan por resonancia magnetica, escaner o ecografia comentar que es el doctor durán el que las realiza y que tenemos centro concertado para tac o scanner y resonancia magnetica
-7. El doctor duran es especialista en radiodiagnostico del hospital insular.`;
+7. El doctor duran es especialista en radiodiagnostico del hospital insular.
+8. Los estudios que realizamos en a unidad de sueño son poligrafias respiratorias y pulsioximetrías nocturnas.
+9. No realizamos estudios de potenciales evocados ni de sueño pelvico, solo electromiografía y electroneurografía`;
 
 // ── Llamada a Claude ─────────────────────────────────────────
 async function askClaude(phone, userMessage) {
