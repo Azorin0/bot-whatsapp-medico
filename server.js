@@ -331,7 +331,7 @@ Codigo	Nombre	Especialidad	Precio
 424	PERFIL ANALITICO APARATO DIGESTIVO GENERAL	PERSONAL CLÍNICA	490
 425	PERFIL APARATO DIGESTIVO EXTRA	PERSONAL CLÍNICA	340
 426	SesiónPsicología	PSICOLOGÍA ANTONIO DIO SUÁREZ	80
-427	PRP NO ESTENUVO	PRP ESTENUVO 2	220
+427	PRP NO ESTENUVO	PRP ESTENUVO 2	220  `; 
 
 // ── Llamada a Claude ─────────────────────────────────────────
 async function askClaude(phone, userMessage) {
