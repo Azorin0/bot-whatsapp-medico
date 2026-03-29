@@ -370,7 +370,7 @@ app.post("/chat", async (req, res) => {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 500,
-      system: SYSTEM_PROMPT,
+      system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve. Nunca recojas datos personales por este canal. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
     res.json({ reply: response.content[0].text });
