@@ -376,8 +376,11 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.options("/
-// ── Health check ─────────────────────────────────────────────
+app.options("/chat", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.sendStatus(200);
+});
 app.get("/", (req, res) => {
   res.json({
     status:   "online",
