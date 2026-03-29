@@ -358,7 +358,25 @@ app.post("/webhook", async (req, res) => {
 
   res.type("text/xml").send(twiml.toString());
 });
+// ── Endpoint para widget web ─────────────────────────────────
+app.post("/chat", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  const { messages } = req.body;
+  try {
+    const response = await anthropic.messages.create({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 500,
+      system: SYSTEM_PROMPT,
+      messages: messages.slice(-10),
+    });
+    res.json({ reply: response.content[0].text });
+  } catch (err) {
+    res.status(500).json({ reply: "Lo sentimos, ha habido un problema técnico." });
+  }
+});
 
+app.options("/
 // ── Health check ─────────────────────────────────────────────
 app.get("/", (req, res) => {
   res.json({
