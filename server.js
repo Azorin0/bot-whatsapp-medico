@@ -370,34 +370,11 @@ app.post("/chat", async (req, res) => {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 500,
-      system: SYSTEM_PROMPT + "\n\nCANAL WEB - INSTRUCCIÓN PRIORITARIA QUE ANULA CUALQUIER OTRA: Estás en el chat de la web. PROHIBIDO pedir nombre, apellidos, teléfono o cualquier dato personal bajo ninguna circunstancia. Si alguien quiere pedir cita o dejar datos, diles SIEMPRE que llamen al 687 533 670 o visiten minillacentromedico.com/contacto. Responde dudas generales brevemente y termina SIEMPRE invitando a llamar o visitar la web.",
-      system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
+      system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web, aunque se conecten desde un movil, pc o tablet. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
-    const reply = response.content[0].text;
-
-    // Notificar por email
-    const userMsg = messages[messages.length - 1]?.content || "";
-    const nodemailer = require("nodemailer");
-    const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-    },
-    });
-    await transporter.sendMail({
-      from: process.env.GMAIL_USER,
-      to: "minillacentromedico@gmail.com",
-      subject: "💬 Nuevo mensaje en el chat web",
-      text: `Mensaje del paciente: ${userMsg}\n\nRespuesta del bot: ${reply}`,
-    }).catch(err => console.error("Error email:", err));
-
-    res.json({ reply });
+    res.json({ reply: response.content[0].text });
   } catch (err) {
-    console.error("Error chat:", err);
     res.status(500).json({ reply: "Lo sentimos, ha habido un problema técnico." });
   }
 });
