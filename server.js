@@ -370,6 +370,7 @@ app.post("/chat", async (req, res) => {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 500,
+      system: SYSTEM_PROMPT + "\n\nCANAL WEB - INSTRUCCIÓN PRIORITARIA QUE ANULA CUALQUIER OTRA: Estás en el chat de la web. PROHIBIDO pedir nombre, apellidos, teléfono o cualquier dato personal bajo ninguna circunstancia. Si alguien quiere pedir cita o dejar datos, diles SIEMPRE que llamen al 687 533 670 o visiten minillacentromedico.com/contacto. Responde dudas generales brevemente y termina SIEMPRE invitando a llamar o visitar la web.",
       system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
