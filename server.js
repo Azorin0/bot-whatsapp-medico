@@ -379,11 +379,13 @@ app.post("/chat", async (req, res) => {
     const userMsg = messages[messages.length - 1]?.content || "";
     const nodemailer = require("nodemailer");
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
-      },
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+    },
     });
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
