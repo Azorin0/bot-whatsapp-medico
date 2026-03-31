@@ -370,11 +370,31 @@ app.post("/chat", async (req, res) => {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 500,
-      system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web, aunque se conecten desde un movil, pc o tablet. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
+      system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
-    res.json({ reply: response.content[0].text });
+    const reply = response.content[0].text;
+
+    // Notificar por email
+    const userMsg = messages[messages.length - 1]?.content || "";
+    const nodemailer = require("nodemailer");
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: "minillacentromedico@gmail.com",
+      subject: "💬 Nuevo mensaje en el chat web",
+      text: `Mensaje del paciente: ${userMsg}\n\nRespuesta del bot: ${reply}`,
+    }).catch(err => console.error("Error email:", err));
+
+    res.json({ reply });
   } catch (err) {
+    console.error("Error chat:", err);
     res.status(500).json({ reply: "Lo sentimos, ha habido un problema técnico." });
   }
 });
