@@ -10,6 +10,7 @@ const express     = require("express");
 const Anthropic   = require("@anthropic-ai/sdk");
 const twilio      = require("twilio");
 const bodyParser  = require("body-parser");
+const fetch = require("node-fetch");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
