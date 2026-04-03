@@ -10,6 +10,7 @@ const express     = require("express");
 const Anthropic   = require("@anthropic-ai/sdk");
 const twilio      = require("twilio");
 const bodyParser  = require("body-parser");
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -372,17 +373,6 @@ app.post("/chat", async (req, res) => {
       system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. NO PEDIR NUNA DATOS PERSONALES, nunca numero de telefono o nombre y apellidos. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Nunca pidas datos personales por este canal web, aunque se conecten desde un movil, pc o tablet. Al final de cada respuesta invita siempre a llamar al 687 533 670 o a pedir cita en minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
-    // Enviar a N8n para guardar en Google Sheets
-const userMsg = messages[messages.length - 1]?.content || "";
-fetch("https://n8n-production-84a0.up.railway.app/webhook/2cf5e0e6-b370-48f6-a55a-7f15df1ab5ef", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    fecha: new Date().toLocaleString("es", { timeZone: "Atlantic/Canary" }),
-    mensaje: userMsg,
-    respuesta: reply
-  })
-}).catch(err => console.error("Error N8n:", err));
     res.json({ reply: response.content[0].text });
   } catch (err) {
     res.status(500).json({ reply: "Lo sentimos, ha habido un problema técnico." });
