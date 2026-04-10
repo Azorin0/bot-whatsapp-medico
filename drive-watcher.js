@@ -5,10 +5,9 @@
  * Cuando detecta un PDF nuevo, extrae los datos de la factura con Claude
  * y la registra automáticamente en ContaSimple.
  *
- * REQUISITOS:
- *   npm install googleapis pdf-parse node-fetch
- *   + archivo google-credentials.json (cuenta de servicio de Google)
- *   + variable de entorno CONTASIMPLE_API_KEY en tu .env
+ * VARIABLES DE ENTORNO REQUERIDAS (configurar en Railway):
+ *   GOOGLE_CREDENTIALS_JSON  → contenido completo del JSON de la cuenta de servicio
+ *   CONTASIMPLE_API_KEY      → clave de API de ContaSimple
  */
 
 const { google } = require("googleapis");
@@ -20,7 +19,6 @@ const pdf = require("pdf-parse");
 const DRIVE_FOLDER_ID  = "1dt2Jwuk4k3DnFsrCY7SK-JtNvjd57A7R";
 const POLL_INTERVAL_MS = 5 * 60 * 1000; // cada 5 minutos
 const PROCESSED_PATH   = path.join(__dirname, "processed_invoices.json");
-const CREDENTIALS_PATH = path.join(__dirname, "google-credentials.json");
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Carga el registro de facturas ya procesadas (evita duplicados)
@@ -35,10 +33,13 @@ function saveProcessed(data) {
   fs.writeFileSync(PROCESSED_PATH, JSON.stringify(data, null, 2));
 }
 
-// Devuelve un cliente autenticado de Google Drive (Service Account)
+// Devuelve un cliente autenticado de Google Drive (Service Account desde env var)
 function getDriveClient() {
+  const credJson = process.env.GOOGLE_CREDENTIALS_JSON;
+  if (!credJson) throw new Error("Falta la variable de entorno GOOGLE_CREDENTIALS_JSON");
+  const credentials = JSON.parse(credJson);
   const auth = new google.auth.GoogleAuth({
-    keyFile: CREDENTIALS_PATH,
+    credentials,
     scopes: ["https://www.googleapis.com/auth/drive.readonly"],
   });
   return google.drive({ version: "v3", auth });
