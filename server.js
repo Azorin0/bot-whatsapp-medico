@@ -414,8 +414,8 @@ app.post("/contasimple/factura", async (req, res) => {
       return res.status(401).json({ error: "No se pudo obtener token", detalle: tokenData });
     }
 
-    const facturaRes = await fetch("https://api.contasimple.com/api/v2/facturas/recibidas", {
-      method: "POST",
+const year = new Date().getFullYear();
+const facturaRes = await fetch(`https://api.contasimple.com/api/v2/accounting/${year}/invoices/received`, {      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
