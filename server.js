@@ -10,6 +10,7 @@ const express     = require("express");
 const Anthropic   = require("@anthropic-ai/sdk");
 const twilio      = require("twilio");
 const bodyParser  = require("body-parser");
+const { startDriveWatcher } = require("./drive-watcher");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -445,4 +446,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en puerto ${PORT}`);
   console.log(`🤖 Bot ${isBotActive() ? "ACTIVO" : "inactivo (fuera de horario)"}`);
+
+  // ── Vigilancia automática de facturas en Google Drive ──────
+  startDriveWatcher(anthropic);
 });
