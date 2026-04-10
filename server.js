@@ -396,9 +396,14 @@ app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en puerto ${PORT}`);
   console.log(`🤖 Bot ${isBotActive() ? "ACTIVO" : "inactivo (fuera de horario)"}`);
 });
-
+app.options("/contasimple/factura", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.sendStatus(200);
+});
 // ── Endpoint para recibir facturas desde n8n y subirlas a Contasimple ──
-app.post("/contasimple/factura", async (req, res) => {
+app.post("/contasimple/factura", async (req, res) => {res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   try {
     const { proveedor, nif_proveedor, numero_factura, fecha, base_imponible, iva, total } = req.body;
 
