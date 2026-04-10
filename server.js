@@ -389,25 +389,19 @@ app.get("/", (req, res) => {
     time:     new Date().toLocaleString("es", { timeZone: CONFIG.TIMEZONE }),
   });
 });
-
-// ── Iniciar servidor ──────────────────────────────────────────
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en puerto ${PORT}`);
-  console.log(`🤖 Bot ${isBotActive() ? "ACTIVO" : "inactivo (fuera de horario)"}`);
-});
+// ── Endpoint para recibir facturas desde n8n y subirlas a Contasimple ──
 app.options("/contasimple/factura", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.sendStatus(200);
 });
-// ── Endpoint para recibir facturas desde n8n y subirlas a Contasimple ──
-app.post("/contasimple/factura", async (req, res) => {res.setHeader("Access-Control-Allow-Origin", "*");
+
+app.post("/contasimple/factura", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   try {
     const { proveedor, nif_proveedor, numero_factura, fecha, base_imponible, iva, total } = req.body;
 
-    // 1. Obtener access_token
     const tokenRes = await fetch("https://api.contasimple.com/api/v2/oauth/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -420,7 +414,6 @@ app.post("/contasimple/factura", async (req, res) => {res.setHeader("Access-Cont
       return res.status(401).json({ error: "No se pudo obtener token", detalle: tokenData });
     }
 
-    // 2. Crear factura recibida en Contasimple
     const facturaRes = await fetch("https://api.contasimple.com/api/v2/facturas/recibidas", {
       method: "POST",
       headers: {
@@ -430,10 +423,7 @@ app.post("/contasimple/factura", async (req, res) => {res.setHeader("Access-Cont
       body: JSON.stringify({
         numero: numero_factura,
         fecha: fecha,
-        proveedor: {
-          nombre: proveedor,
-          nif: nif_proveedor
-        },
+        proveedor: { nombre: proveedor, nif: nif_proveedor },
         baseImponible: parseFloat(base_imponible),
         iva: parseFloat(iva),
         total: parseFloat(total)
@@ -448,4 +438,11 @@ app.post("/contasimple/factura", async (req, res) => {res.setHeader("Access-Cont
     console.error("[Contasimple] Error:", err);
     res.status(500).json({ error: err.message });
   }
+});
+
+// ── Iniciar servidor ──────────────────────────────────────────
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Servidor corriendo en puerto ${PORT}`);
+  console.log(`🤖 Bot ${isBotActive() ? "ACTIVO" : "inactivo (fuera de horario)"}`);
 });
