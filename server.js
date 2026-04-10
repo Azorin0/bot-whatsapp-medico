@@ -104,7 +104,7 @@ LISTADO DE PRECIO
 8	ECOGRAFIA ARTICULAR	UNIDAD DEL DOLOR	70
 9	ECOGRAFIA MUSCULAR Y TENDINOSA	UNIDAD DEL DOLOR	70
 10	ECOGRAFIA MAMARIA	UNIDAD DEL DOLOR	90
-11	PRIMERA CONSULTA UNIDAD DEL SUEÑO	NEUROFISIOLOGÍA	90
+11	PRIMERA CONSULTA UNIDAD DEL SUEÑO	NEUROFISIOLOGÍA	80
 12	REVISION UNIDAD DEL SUEÑO	NEUROFISIOLOGÍA	60
 13	ELECTROMIOGRAFÍA	NEUROFISIOLOGÍA 95
 ELECTROMIOGRAFÍA DOBLE 180
@@ -185,8 +185,6 @@ ELECTROMIOGRAFÍA DOBLE 180
 202	PRIMERA CONSULTA GINECOLOGÍA	GINECOLOGÍA JAVI JANED	100
 203	CRIBADO DEL 1ER TRIMESTRE	GINECOLOGÍA JAVI JANED	150
 204	ECOGRAFÍA MORFOLÓGICA	GINECOLOGÍA JAVI JANED	180
-205	IMPLANTE IMPLANON NXT	GINECOLOGÍA JAVI JANED	180
-206	RETIRADA IMPLANON NXT	GINECOLOGÍA JAVI JANED	120
 207	REVISIÓN EMBARAZO	GINECOLOGÍA JAVI JANED	80
 208	REVISIÓN GINECOLOGÍA	GINECOLOGÍA JAVI JANED	80
 211	PRIMERA CONSULTA	NEUROLOGÍA	110
@@ -195,8 +193,6 @@ ELECTROMIOGRAFÍA DOBLE 180
 214	PRP PACIENTES NO ESTENUVO	MEDICINA CAPILAR	220
 224	COLPOSCOPIA	GINECOLOGÍA JANED	190
 228	BIOPSIA DE COLPOSCOPIA	PERSONAL CLÍNICA	100
-229	REVISIÓN ENFERMERÍA UROLOGICA	LITOTRICIA UROLOGÍA	40
-230	CONSULTA + ECOGRAFIA	UNIDAD DEL DOLOR TRAUMATOLOGICA Y RADIOLOGIA	120
 231	PRIMERA VISITA EMBARAZO	GINECOLOGÍA JANED	120
 232	VISITA SUCESIVA CONTROL EMBARAZO	GINECOLOGÍA JANED	100
 233	CRIBADO PRIMER TRIMESTRE (DURANTE SEMANA 12)	GINECOLOGÍA JANED	150
@@ -221,21 +217,9 @@ ELECTROMIOGRAFÍA DOBLE 180
 256	PELLETS MUJER	UNIDAD DEL DOLOR TRAUMATOLOGICA Y RADIOLOGIA	350
 257	PRIMERA CONSULTA REUMATOLOGIA + ECOGRAFIA	REUMATOLOGÍA	120
 258	REVISIÓN REUMATOLOGÍA	REUMATOLOGÍA	60
-259	2 VIALES ACIDO HIALURONICO	MEDICINA ANTIENVEJECIMIENTO, SALUD HORMONAL E INTEGRATIVA	523.3645
 276	PRIMERA CONSULTA + ECOGRAFIA + INFILTRACION	REUMATOLOGÍA	175
 277	REVISION REUMATOLOGIA CON ECOGRAFIA	REUMATOLOGÍA	100
 278	REVISION REUMATOLOGIA + ECOGRAFIA + INFILTRACION	REUMATOLOGÍA	150
-279	PELLETS TESTOSTERONA	UNIDAD DEL DOLOR TRAUMATOLOGICA Y RADIOLOGIA	300
-280	PELLETS TESTOSTERONA + ESTRADIOL	UNIDAD DEL DOLOR TRAUMATOLOGICA Y RADIOLOGIA	350
-281	PELLETS TESTOSTERONA + ESTRADIOL + PROGESTERONA	UNIDAD DEL DOLOR TRAUMATOLOGICA Y RADIOLOGIA	400
-282	1ª consulta con pautas dietéticas Parejas	DIETISTA	198
-283	1ª consulta con pautas dietéticas + 2 dietas de 1 semana personalizadas (y además disponibles en app Dietopro x 6 semanas)	DIETISTA	179
-284	1ª consulta EN PAREJA con pautas dietéticas + 2 dietas de 1 semana personalizadas (y además disponibles en app Dietopro x 6 semanas)	DIETISTA	251
-285	Revisión Distista en Pareja	DIETISTA	125
-286	Revisión con 2 dietas de 1 semana personalizadas  (y además disponibles en app Dietopro x 6  semanas)	DIETISTA	125
-287	Revisión EN PAREJA con 2 dietas de 1 semana personalizadas  (y además disponibles en app Dietopro x 6  semanas)	DIETISTA	179
-291	ANALITICA SANGRE OCULTA EN HECES	PRODUCTOS/SERVICIOS UROLOGIA	20
-292	LITOTRICIA EN PACKS (2025)	LITOTRICIA Y ENFERMERIA UROLÓGICA	135
 293	SESION PRP UROLOGICA (2025)	LITOTRICIA Y ENFERMERIA UROLÓGICA	150
 294	LITOTRICIA + PRP UROLOGIA	LITOTRICIA Y ENFERMERIA UROLÓGICA	285
 295	CISTOSCOPIA	UROLOGÍA	400
@@ -251,7 +235,6 @@ ELECTROMIOGRAFÍA DOBLE 180
 340	PACK 3 SESIONES PRP PACIENTE NO ESTENUVO	MEDICINA CAPILAR	585
 341	PACK PRP PACIENTE NO ESTENUVO	PRP ESTENUVO 2	585
 343	PRUEBA SIBO	PERSONAL CLÍNICA	85
-368	ECO	RADIOLOGIA	50
 369	PERFIL ANALITICA PRIMER TRIMESTRE EMBARAZO	PERSONAL CLÍNICA	230
 370	PERFIL ANALITICA SEGUNDO TRIMESTRE EMBARAZO	PERSONAL CLÍNICA	70
 371	PERFIL ANALITICA TERCERTRIMESTRE EMBARAZO	PERSONAL CLÍNICA	210
@@ -412,4 +395,52 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor corriendo en puerto ${PORT}`);
   console.log(`🤖 Bot ${isBotActive() ? "ACTIVO" : "inactivo (fuera de horario)"}`);
+});
+
+// ── Endpoint para recibir facturas desde n8n y subirlas a Contasimple ──
+app.post("/contasimple/factura", async (req, res) => {
+  try {
+    const { proveedor, nif_proveedor, numero_factura, fecha, base_imponible, iva, total } = req.body;
+
+    // 1. Obtener access_token
+    const tokenRes = await fetch("https://api.contasimple.com/api/v2/oauth/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "grant_type=authentication_key&key=4b1c479561a8442ba6420a005a83e851"
+    });
+    const tokenData = await tokenRes.json();
+    const token = tokenData.access_token;
+
+    if (!token) {
+      return res.status(401).json({ error: "No se pudo obtener token", detalle: tokenData });
+    }
+
+    // 2. Crear factura recibida en Contasimple
+    const facturaRes = await fetch("https://api.contasimple.com/api/v2/facturas/recibidas", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        numero: numero_factura,
+        fecha: fecha,
+        proveedor: {
+          nombre: proveedor,
+          nif: nif_proveedor
+        },
+        baseImponible: parseFloat(base_imponible),
+        iva: parseFloat(iva),
+        total: parseFloat(total)
+      })
+    });
+
+    const facturaData = await facturaRes.json();
+    console.log(`[Contasimple] Factura creada:`, facturaData);
+    res.json({ ok: true, factura: facturaData });
+
+  } catch (err) {
+    console.error("[Contasimple] Error:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
