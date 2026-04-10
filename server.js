@@ -421,12 +421,25 @@ const facturaRes = await fetch(`https://api.contasimple.com/api/v2/accounting/${
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        numero: numero_factura,
-        fecha: fecha,
-        proveedor: { nombre: proveedor, nif: nif_proveedor },
-        baseImponible: parseFloat(base_imponible),
-        iva: parseFloat(iva),
-        total: parseFloat(total)
+        number: numero_factura,
+        invoiceDate: new Date(fecha).toISOString(),
+        issuer: {
+          organization: proveedor,
+          nif: nif_proveedor
+        },
+        lines: [
+          {
+            concept: "Factura recibida",
+            quantity: 1,
+            unitTaxableAmount: parseFloat(base_imponible),
+            vatPercentage: parseFloat(iva),
+            totalTaxableAmount: parseFloat(base_imponible)
+          }
+        ],
+        totalTaxableAmount: parseFloat(base_imponible),
+        totalVatAmount: parseFloat(iva) * parseFloat(base_imponible) / 100,
+        totalAmount: parseFloat(total)
+      })
       })
     });
 
