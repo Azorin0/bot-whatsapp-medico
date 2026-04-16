@@ -10,6 +10,15 @@ const express     = require("express");
 const Anthropic   = require("@anthropic-ai/sdk");
 const twilio      = require("twilio");
 const bodyParser  = require("body-parser");
+const nodemailer  = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -373,10 +382,32 @@ app.post("/chat", async (req, res) => {
       system: SYSTEM_PROMPT + "\n\nCANAL WEB: Estás respondiendo desde el chat de la web del centro. Si nombra la palabra cita si puedes pedir datos personales tales como nombre y apellidos y teléfono para contactar. Responde dudas generales de forma breve, sin usar asteriscos o comillas ni dar precios sino aproximados. Como alternativa al final de dos respuestas invita siempre a llamar al 687 533 670 o a pedir cita en www.minillacentromedico.com/contacto",
       messages: messages.slice(-10),
     });
-    const reply = response.content[0].text;
+
+const reply = response.content[0].text;
+const userMsg = messages[messages.length - 1]?.content || "";
+
+// Detectar si el paciente dejó nombre y teléfono
+const tieneTelefono = /(\+34|0034)?[\s-]?[6-9]\d{8}/.test(userMsg);
+const tieneNombre = /[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+/.test(userMsg);
+
+if (tieneTelefono && tieneNombre) {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_TO,
+    subject: '🏥 Nuevo paciente desde el chat web - Minilla Centro Médico',
+    text: `Se ha recibido un mensaje con datos de contacto:\n\n` +
+          `Mensaje del paciente:\n"${userMsg}"\n\n` +
+          `Respuesta del bot:\n"${reply}"\n\n` +
+          `Fecha: ${new Date().toLocaleString('es-ES', { timeZone: 'Atlantic/Canary' })}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) console.error('Error enviando email:', error);
+    else console.log('Email enviado:', info.response);
+  });
+}
 
 // Enviar a N8n para guardar en Google Sheets
-const userMsg = messages[messages.length - 1]?.content || "";
 fetch("https://n8n-production-84a0.up.railway.app/webhook/2cf5e0e6-b370-48f6-a55a-7f15df1ab5ef", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
