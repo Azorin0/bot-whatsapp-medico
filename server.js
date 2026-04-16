@@ -388,7 +388,7 @@ const userMsg = messages[messages.length - 1]?.content || "";
 
 // Detectar si el paciente dejó nombre y teléfono
 const tieneTelefono = /(\+34|0034)?[\s-]?[6-9]\d{8}/.test(userMsg);
-const tieneNombre = /[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+/.test(userMsg);
+    const tieneNombre = /[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,}\s[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,}/.test(userMsg);
     console.log('userMsg:', userMsg);
 console.log('tieneTelefono:', tieneTelefono);
 console.log('tieneNombre:', tieneNombre);
